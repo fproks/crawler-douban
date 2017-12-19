@@ -148,6 +148,8 @@ public class Crawling {
         String[] infoList = info.split("/");
         data.setAuthor(infoList[0].trim());
         data.setPublishers(infoList[infoList.length - 3]);
+        data.setData(infoList[infoList.length-2].trim());
+        data.setPrice(Utils.getFloatFormString(infoList[infoList.length-1]));
     }
 
 
@@ -206,7 +208,10 @@ public class Crawling {
         ArrayList<Data> dataList = new ArrayList<>(dataMap.values());
         dataList.sort((Data data1, Data data2) -> Integer.compare(data2.getEvaluationNumber(), data1.getEvaluationNumber()));
         //存储为xls 文件
-        ExcelWrite excelWrite = new ExcelWrite("result.xls", "crawling", new String[]{"序号", "书名", "评分", "评价人数", "作者", "出版社"});
+        ExcelWrite excelWrite = new ExcelWrite(
+                "result.xls",
+                "crawling",
+                new String[]{"序号", "书名", "评分", "评价人数", "作者", "出版社","出版日期","价格"});
         excelWrite.createExcel();
         excelWrite.writeToExcel(dataList);
         System.out.println("FINISH");

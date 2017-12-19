@@ -1,3 +1,4 @@
+import cn.linhos.Util.Utils;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -57,10 +58,13 @@ public class xpathTest {
 
     @Test
     public void split() {
-        String str = "劳伦斯・莱斯格、李旭 / 李旭 / 中信出版社 / 2004-10-1 / 30.00元 ";
+        String str = "劳伦斯・莱斯格、李旭 / 李旭 / 中信出版社 / 2004-10-1 / 30.19元 ";
 
         String[] list = str.split("/");
         System.out.println(list[list.length - 3].trim());
+        String money =list[list.length-1].trim();
+        System.out.println(Utils.getFloatFormString(money));
+        System.out.println(list[list.length-2].trim());
 
     }
 }

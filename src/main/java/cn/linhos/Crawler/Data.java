@@ -17,6 +17,9 @@ public class Data implements Comparable<Data> {
     private int EvaluationNumber;
     private String Author;
     private String Publishers;
+    private String Data;
+    private float Price;
+
 
     public Data() {
     }
@@ -84,6 +87,8 @@ public class Data implements Comparable<Data> {
         list.add(Integer.toString(EvaluationNumber));
         list.add(Author);
         list.add(Publishers);
+        list.add(Data);
+        list.add(Float.toString(Price));
         return list;
     }
 
@@ -92,5 +97,21 @@ public class Data implements Comparable<Data> {
     public int compareTo(Data o) {
         return this.EvaluationNumber - o.EvaluationNumber;
 
+    }
+
+    public float getPrice() {
+        return Price;
+    }
+
+    public void setPrice(float price) {
+        Price = price;
+    }
+
+    public String getData() {
+        return Data;
+    }
+
+    public void setData(String data) {
+        Data = data;
     }
 }
