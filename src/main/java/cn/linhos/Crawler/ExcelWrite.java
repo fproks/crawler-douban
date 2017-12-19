@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by fprok on 2017/12/19.
  */
+
 /**
  * excel文件存储类
  */
@@ -29,6 +30,7 @@ public class ExcelWrite {
 
     /**
      * 创建excel 文件
+     *
      * @throws Exception
      */
     public void createExcel() throws Exception {
@@ -56,10 +58,11 @@ public class ExcelWrite {
 
     /**
      * 将list 数据写入excel
+     *
      * @param dates 待写入的数据
      */
-    public void WriteToExcel( List<Data> dates) {
-        int dataSize =dates.size() >100? 100 :dates.size(); //只写入前100个
+    public void writeToExcel(List<Data> dates) {
+        int dataSize = dates.size() > 100 ? 100 : dates.size(); //只写入前100个
         File file = new File(fileName);
         try {
             workbook = new HSSFWorkbook(new FileInputStream(file));
@@ -73,8 +76,8 @@ public class ExcelWrite {
             for (int i = 0; i < dataSize; i++) {
                 HSSFRow newRow = sheet.createRow(i + 1); //创建一行
                 List<String> dataList = dates.get(i).DataToList(i);
-                HSSFCell cell =newRow.createCell(0);
-                cell.setCellValue(i+1);
+                HSSFCell cell = newRow.createCell(0);
+                cell.setCellValue(i + 1);
                 for (int j = 1; j < columnCount; j++) {  //写入一个数据
                     cell = newRow.createCell(j);
                     cell.setCellValue(dataList.get(j));
@@ -84,7 +87,7 @@ public class ExcelWrite {
             workbook.write(out);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 assert out != null;
                 out.close();
@@ -92,7 +95,5 @@ public class ExcelWrite {
             }
         }
     }
-
-
 
 }

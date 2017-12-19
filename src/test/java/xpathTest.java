@@ -1,34 +1,17 @@
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.util.Cookie;
-import org.htmlcleaner.*;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
-import java.net.CookieManager;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * Created by fprok on 2017/12/19.
+ */
 
 public class xpathTest {
 
@@ -36,12 +19,10 @@ public class xpathTest {
     private static final String xpathTitle = ".//*[@id='subject_list']/ul/li//div[2]/h2/a";
 
 
-
-
     @Test
     public void cookie() throws IOException {
 
-        WebClient webClient = StartWebClient();
+        WebClient webClient = startWebClient();
         HtmlPage page = client.getPage("https://book.douban.com/tag/%E4%BA%92%E8%81%94%E7%BD%91?start=40&type=S");
         Set<Cookie> cookies = client.getCookieManager().getCookies();
         if (cookies.size() <= 0) System.out.println("cookie 错误");
@@ -55,7 +36,7 @@ public class xpathTest {
     private static WebClient client = null;
 
 
-    public WebClient StartWebClient() {
+    public WebClient startWebClient() {
         if (client == null) {
             synchronized (this) {
                 if (client == null) {

@@ -20,6 +20,14 @@ import java.util.regex.Pattern;
 /**
  * Created by fprok on 2017/12/19.
  */
+
+/**
+ * 使用HtmlUnit 对指定网页进行爬取
+ * 使用xpath 获取指定数据
+ * 三个线程同时爬取
+ * 同时写入到一个Map中
+ *
+ */
 public class Crawling {
 
 
@@ -62,7 +70,7 @@ public class Crawling {
     /**
      * 清空存储数据，关闭WebClient
      */
-    public  void Close(){
+    public  void close(){
         if(client!=null){
             synchronized (this){
                 if(client!=null) {
@@ -106,15 +114,15 @@ public class Crawling {
     public void getDataToList(HtmlPage page) {
         if (page == null) return;
         List<?> bookNameList = page.getByXPath(BOOK_NAME_XPATH);
-        List<?> bookinfoList = page.getByXPath(BOOK_INFO_XPATH);
-        List<?> booksourceList = page.getByXPath(SOURCE_XPATH);
+        List<?> bookInfoList = page.getByXPath(BOOK_INFO_XPATH);
+        List<?> bookSourceList = page.getByXPath(SOURCE_XPATH);
         List<?> EvaluationNumberList = page.getByXPath(EVALUATION_NUMBER);
         for (int i = 0; i < bookNameList.size(); i++) {
             Data data = new Data();
             data.setBookName(((HtmlAnchor) bookNameList.get(i)).asText()); //书名
-            HtmlDivision divTmp = (HtmlDivision) bookinfoList.get(i);
+            HtmlDivision divTmp = (HtmlDivision) bookInfoList.get(i);
             getInfoWithSplit(data, divTmp.asText()); //作者，出版社
-            String source = ((HtmlSpan) booksourceList.get(i)).asText().trim();
+            String source = ((HtmlSpan) bookSourceList.get(i)).asText().trim();
             data.setSource(Float.parseFloat(source));
             HtmlSpan evaluateTmp = (HtmlSpan) EvaluationNumberList.get(i);
             getEvaluationNumber(data, evaluateTmp);
@@ -200,7 +208,7 @@ public class Crawling {
         //存储为xls 文件
         ExcelWrite excelWrite = new ExcelWrite("result.xls", "crawling", new String[]{"序号", "书名", "评分", "评价人数", "作者", "出版社"});
         excelWrite.createExcel();
-        excelWrite.WriteToExcel(dataList);
+        excelWrite.writeToExcel(dataList);
         System.out.println("FINISH");
     }
 
